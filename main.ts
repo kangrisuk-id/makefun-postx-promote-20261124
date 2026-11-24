@@ -26,6 +26,10 @@ function checkedPostUrl(botDir: string): string {
   if (typeof url !== 'string' || !/^https:\/\/x\.com\/[A-Za-z0-9_]+\/status\/\d+$/.test(url)) {
     throw new Error(`POST.json does not name an X post address: ${String(url)}`);
   }
+  // The entry is our own post, never the announcement it promotes.
+  if (url === 'https://x.com/makefunai/status/2124915864336236646') {
+    throw new Error('POST.json names make.fun\'s own post, not ours');
+  }
   return url;
 }
 
